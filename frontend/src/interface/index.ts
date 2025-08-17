@@ -17,9 +17,17 @@ export interface DeleteTodoProps {
 export interface InputTodoProps {
     setTodos: Dispatch<SetStateAction<ITodo[]>>;
 }
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  avatar?: string;
+}
 export interface AuthContextType {
     isLoggedIn: boolean,
     setIsLoggedIn: (value: boolean) => void
     login: (token: string) => void;
     logout: () => void;
+    user: User | null;
+    setUser: (user: User | null) => void;
 }

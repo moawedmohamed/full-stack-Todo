@@ -14,8 +14,8 @@ import { AppWrapper } from "./AppWrapper";
 const App = () => {
   return (
     <Router>
-      <AppWrapper>
-        <AuthProvider>
+      <AuthProvider>
+        <AppWrapper>
           {/* الشريط العلوي يمكنه الوصول لحالة تسجيل الدخول */}
           <Navbar />
 
@@ -56,8 +56,8 @@ const App = () => {
               }
             />
           </Routes>
-        </AuthProvider>
-      </AppWrapper>
+        </AppWrapper>
+      </AuthProvider>
     </Router>
   );
 };
