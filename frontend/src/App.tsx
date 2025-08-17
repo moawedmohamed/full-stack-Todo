@@ -9,52 +9,55 @@ import { AuthProvider } from "./context/AuthContext";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import "./index.css";
+import { AppWrapper } from "./AppWrapper";
 
 const App = () => {
   return (
     <Router>
-      <AuthProvider>
-        {/* الشريط العلوي يمكنه الوصول لحالة تسجيل الدخول */}
-        <Navbar />
+      <AppWrapper>
+        <AuthProvider>
+          {/* الشريط العلوي يمكنه الوصول لحالة تسجيل الدخول */}
+          <Navbar />
 
-        {/* إشعارات Toast */}
-        <ToastContainer
-          position="top-center"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-
-        {/* الصفحات */}
-        <Routes>
-          {/* الصفحات العامة */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-
-          {/* الصفحات المحمية */}
-          <Route
-            path="/todos"
-            element={
-              <ProtectedRoute>
-                <ListTodo />
-              </ProtectedRoute>
-            }
+          {/* إشعارات Toast */}
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
           />
-          <Route
-            path="/add"
-            element={
-              <ProtectedRoute>
-                <InputTodo setTodos={() => {}} />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </AuthProvider>
+
+          {/* الصفحات */}
+          <Routes>
+            {/* الصفحات العامة */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+
+            {/* الصفحات المحمية */}
+            <Route
+              path="/todos"
+              element={
+                <ProtectedRoute>
+                  <ListTodo />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/add"
+              element={
+                <ProtectedRoute>
+                  <InputTodo setTodos={() => {}} />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </AuthProvider>
+      </AppWrapper>
     </Router>
   );
 };

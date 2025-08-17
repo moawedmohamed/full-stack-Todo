@@ -1,10 +1,10 @@
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
-    const navigate = useNavigate(); // ✅ نستخدم navigate
-    const {isLoggedIn, setIsLoggedIn} = useAuth();
+  const navigate = useNavigate(); // ✅ نستخدم navigate
+  const { isLoggedIn, setIsLoggedIn, login, logout } = useAuth();
   // نتحقق من وجود token
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -12,8 +12,7 @@ const Navbar = () => {
   }, [setIsLoggedIn]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
+    logout();
     navigate("/login");
   };
 
@@ -26,8 +25,8 @@ const Navbar = () => {
       <div className="space-x-4">
         {isLoggedIn ? (
           <>
-            <Link to="/dashboard" className="hover:text-gray-200">
-              Dashboard
+            <Link to="/todos" className="hover:text-gray-200">
+              home
             </Link>
             <button
               onClick={handleLogout}

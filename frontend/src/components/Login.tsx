@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify"; // ✅ Make sure to inst
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const { setIsLoggedIn } = useAuth();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
@@ -64,7 +64,7 @@ const Login = () => {
 
       if (data.token) {
         localStorage.setItem("token", data.token);
-        setIsLoggedIn(true);
+        login(data.token);
         setTimeout(() => navigate("/todos"), 2000);
         toast.success("Login successful!");
       } else {

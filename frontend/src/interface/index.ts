@@ -20,4 +20,6 @@ export interface InputTodoProps {
 export interface AuthContextType {
     isLoggedIn: boolean,
     setIsLoggedIn: (value: boolean) => void
+    login: (token: string) => void;
+    logout: () => void;
 }
