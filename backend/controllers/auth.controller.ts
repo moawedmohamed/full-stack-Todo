@@ -16,15 +16,21 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
         const user = resultQuery.rows[0];
         const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" });
         res.json({ user, token });
-    } catch (err) {
+    } catch (err: any) {
         console.log(err);
-        res.status(500).json({ message: "Server error" });
+
+        // إذا كان الخطأ من نوع "unique violation"
+        if (err.code === "23505") {
+            res.status(400).json({ message: "Email already exists" });
+        } else {
+            res.status(500).json({ message: "Server error" });
+        }
     }
 };
 export const login = async (req: Request, res: Response): Promise<void> => {
     const { email, password }: IUserLogin = req.body;
     try {
-        const resultQuery = await pool.query("select * from users where email=$1 RETURNING *", [
+        const resultQuery = await pool.query("select * from users where email=$1", [
             email,
         ]);
         const user = resultQuery.rows[0];

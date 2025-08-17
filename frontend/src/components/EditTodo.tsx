@@ -7,9 +7,13 @@ export default function EditTodo({ todo, onUpdate }: EditTodoProps) {
 
   const updatedData = async (todo_id: number) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(`http://localhost:5000/todos/${todo_id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ description }),
       });
       const data = await response.json();

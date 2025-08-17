@@ -9,13 +9,18 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
     e.preventDefault();
     try {
       const body = { description };
+      const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:5000/todos", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(body),
       });
-      const data:ITodo = await response.json();
-      setTodos((prev)=>[...prev,data]);
+      const data: ITodo = await response.json();
+      setTodos((prev) => [...prev, data]);
+      setDescription("");
     } catch (error) {
       console.log(error);
     }

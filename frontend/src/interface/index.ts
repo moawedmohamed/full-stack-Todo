@@ -17,3 +17,7 @@ export interface DeleteTodoProps {
 export interface InputTodoProps {
     setTodos: Dispatch<SetStateAction<ITodo[]>>;
 }
+export interface AuthContextType {
+    isLoggedIn: boolean,
+    setIsLoggedIn: (value: boolean) => void
+}

@@ -6,11 +6,17 @@ import InputTodo from "./InputTodo";
 
 const ListTodo = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
-
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/todos");
+        const token = localStorage.getItem("token");
+        const response = await fetch("http://localhost:5000/todos", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // مهم
+          },
+        });
         const jsonData = await response.json();
         setTodos(jsonData);
         console.log(jsonData);
@@ -25,8 +31,13 @@ const ListTodo = () => {
   // **handlers
   const handleDeleteData = async (todo_id: number) => {
     try {
+      const token = localStorage.getItem("token");
       await fetch(`http://localhost:5000/todos/${todo_id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
       setTodos(todos.filter((todo) => todo.todo_id !== todo_id));
     } catch (error) {
